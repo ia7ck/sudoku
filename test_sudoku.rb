@@ -31,6 +31,22 @@ class TestSudoku < Test::Unit::TestCase
     assert_equal(solution, sudoku.table, "mismatch")
   end
 
+  def test_solve_unsolved
+    quiz = [
+      [0, 2, 3, 4, 5, 6, 7, 8, 9],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0],
+      [3, 0, 0, 0, 0, 0, 0, 0, 0],
+      [4, 0, 0, 0, 0, 0, 0, 0, 0],
+      [5, 0, 0, 0, 0, 0, 0, 0, 0],
+      [6, 0, 0, 0, 0, 0, 0, 0, 0],
+      [7, 0, 0, 0, 0, 0, 0, 0, 0],
+      [8, 0, 0, 0, 0, 0, 0, 0, 0],
+      [9, 0, 0, 0, 0, 0, 0, 0, 0],
+    ].flatten
+    sudoku = Sudoku.new(quiz)
+    assert_equal(false, sudoku.solve)
+  end
+
   def test_solve_1000times
     def encode(str)
       str.chars.map(&:to_i)
