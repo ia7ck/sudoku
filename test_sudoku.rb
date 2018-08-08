@@ -38,8 +38,7 @@ class TestSudoku < Test::Unit::TestCase
 
     CSV.foreach("sudoku.csv", {:headers => true}).with_index(1) do |csv_row, idx|
       break if idx > 1000
-      quiz = csv_row["quizzes"]
-      sudoku = Sudoku.new(encode(quiz))
+      sudoku = Sudoku.new(encode(csv_row["quizzes"]))
       assert_equal(true, sudoku.solve, "unsolved")
       assert_equal(encode(csv_row["solutions"]), sudoku.table, "mismatch")
     end
