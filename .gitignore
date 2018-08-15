@@ -1,3 +1,4 @@
 .bundle/
 vendor/
 sudoku.csv
+logger.rb
