@@ -76,7 +76,6 @@ const run = ({ initial, final, log }) => {
     draw: () => {
       return ((state, actions) => {
         if (state.log.length > 0) {
-          if (state.log.length % 100 == 0) console.log(state.log.length);
           const { pos, val, info } = state.log[0]
           if (state.previousRecord === null) {
             changeRangeColor(pos, "lightgray")
@@ -123,8 +122,8 @@ const run = ({ initial, final, log }) => {
 
   const Table = ({ state, actions }) => {
     return h("table", { oncreate: () => actions.set(BASE_INTERVAL) },
-      h("tbody", {}, state.table.map((row, i) => {
-        return h("tr", {}, row.map((cell, j) => {
+      h("tbody", {}, state.table.map((row) => {
+        return h("tr", {}, row.map((cell) => {
           return h("td", { style: { color: cell.textColor, backgroundColor: cell.backgroundColor, fontStyle: cell.fontStyle } }, cell.val)
         }))
       }))
