@@ -4,4 +4,4 @@
 
 #### Demo
 
-[demo](docs/demo.gif)
+![demo](docs/demo.gif)
