@@ -121,17 +121,32 @@ const run = ({ initial, final, log }) => {
   }
 
   const Table = ({ state, actions }) => {
-    return h("table", { oncreate: () => actions.set(BASE_INTERVAL) },
-      h("tbody", {}, state.table.map((row) => {
-        return h("tr", {}, row.map((cell) => {
-          return h("td", { style: { color: cell.textColor, backgroundColor: cell.backgroundColor, fontStyle: cell.fontStyle } }, cell.val)
-        }))
-      }))
-    )
+    return h("div", { class: "flex-container" }, [
+      h("div", { class: "flex-item" },
+        h("table", { oncreate: () => actions.set(BASE_INTERVAL) },
+          h("tbody", {}, state.table.map((row) => {
+            return h("tr", {}, row.map((cell) => {
+              return h("td", { style: { color: cell.textColor, backgroundColor: cell.backgroundColor, fontStyle: cell.fontStyle } }, cell.val)
+            }))
+          }))
+        )
+      ),
+      h("div", { class: "flex-item" },
+        h("table", {},
+          h("tbody", {}, final.map((row, i) => {
+            return h("tr", {}, row.map((val, j) => {
+              return h("td", { style: { color: "black", backgroundColor: "white", fontStyle: (initial[i][j] === 0 ? "italic" : "normal") } }, val)
+            }))
+          }))
+        )
+      ),
+    ])
+
+
   }
 
   const view = (state, actions) => {
-    return h("div", { class: "container" }, [
+    return h("div", {}, [
       Table({ state, actions }),
       h("p", {}, [
         h("form", {},
