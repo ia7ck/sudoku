@@ -23,3 +23,13 @@ td {
 .flex-container>.flex-item {
   padding: 0.75rem;
 }
+
+/* https://developer.mozilla.org/ja/docs/Learn/HTML/Forms/Styling_HTML_forms#Fonts_and_text */
+
+select {
+  font-family: inherit;
+  font-size: 100%;
+  padding: 0 0.2rem;
+  background: none;
+  border-radius: 0.2rem;
+}

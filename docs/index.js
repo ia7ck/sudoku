@@ -141,17 +141,15 @@ const run = ({ initial, final, log }) => {
         )
       ),
     ])
-
-
   }
 
   const view = (state, actions) => {
     return h("div", {}, [
       Table({ state, actions }),
-      h("p", {}, [
+      h("p", { style: { marginLeft: "0.75rem" } }, [
         h("form", {},
           h("label", { for: "speed" }, "Speed "),
-          h("select", { id: "speed", name: "speed", onchange: (ev) => actions.changeInterval(ev) }, [
+          h("select", { id: "speed", name: "speed", onchange: (ev) => actions.changeInterval(ev), oncreate: (e) => e.focus() }, [
             h("option", { value: "x1" }, "x1"),
             h("option", { value: "x2", selected: "selected" }, "x2"),
             h("option", { value: "x4" }, "x4"),
