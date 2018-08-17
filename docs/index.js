@@ -13,7 +13,7 @@ const run = ({ initial, final, log }) => {
   const state = {
     table: initial.map((row) => {
       return row.map((val) => {
-        return { val: (val === 0 ? " " : val), textColor: "black", backgroundColor: "white" }
+        return { val: (val === 0 ? " " : val), textColor: "black", backgroundColor: "white", fontStyle: (val === 0 ? "italic" : "normal") }
       })
     }),
     log: log,
@@ -24,7 +24,6 @@ const run = ({ initial, final, log }) => {
   const updateCell = (pos, val, color) => {
     state.table[pos.r][pos.c].val = val
     state.table[pos.r][pos.c].backgroundColor = color
-    state.table[pos.r][pos.c].fontStyle = "italic"
   }
 
   const changeRangeColor = (pos, color) => {
