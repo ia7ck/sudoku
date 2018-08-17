@@ -2,6 +2,6 @@
 2. `bundle install`
 3. `ruby test_sudoku.rb`でテストが走ります。
 
-#### Demo
+#### Visualize
 
-![demo](docs/demo.gif)
+![visualize](docs/anime.gif)
