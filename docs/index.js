@@ -1,4 +1,6 @@
-fetch("log.json")
+filenames = ["log1.json", "log2.json", "log3.json", "special.json"]
+filename = filenames[Math.floor(Math.random() * filenames.length)]
+fetch(filename)
   .then((response) => {
     return response.json()
   }).then((json) => {
@@ -17,6 +19,7 @@ const run = ({ initial, final, log }) => {
       })
     }),
     log: log,
+    totalStep: log.length,
     previousRecord: null,
     intervalID: null,
   }
@@ -70,11 +73,12 @@ const run = ({ initial, final, log }) => {
         if (state.intervalID !== null) {
           clearInterval(state.intervalID)
         }
-        state.intervalID = setInterval(actions.draw, interval)
+        const intervalID = setInterval(actions.draw, interval)
+        return ({ intervalID })
       })
     },
     draw: () => {
-      return ((state, actions) => {
+      return ((state) => {
         if (state.log.length > 0) {
           const { pos, val, info } = state.log[0]
           if (state.previousRecord === null) {
@@ -114,7 +118,7 @@ const run = ({ initial, final, log }) => {
                 break
             }
           }
-          return ({ table: state.table, log: state.log.slice(1), previousRecord: state.log[0], ID: state.intervalID })
+          return ({ table: state.table, log: state.log.slice(1), previousRecord: state.log[0] })
         }
       })
     },
@@ -146,19 +150,20 @@ const run = ({ initial, final, log }) => {
   const view = (state, actions) => {
     return h("div", {}, [
       Table({ state, actions }),
-      h("p", { style: { marginLeft: "0.75rem" } }, [
+      h("div", { style: { marginLeft: "0.75rem" } }, [
         h("form", {},
           h("label", { for: "speed" }, "Speed "),
           h("select", { id: "speed", name: "speed", onchange: (ev) => actions.changeInterval(ev), oncreate: (e) => e.focus() }, [
-            h("option", { value: "x1" }, "x1"),
-            h("option", { value: "x2", selected: "selected" }, "x2"),
+            h("option", { value: "x1", selected: "selected" }, "x1"),
+            h("option", { value: "x2" }, "x2"),
             h("option", { value: "x4" }, "x4"),
             h("option", { value: "x8" }, "x8"),
             h("option", { value: "x16" }, "x16"),
             h("option", { value: "x32" }, "x32"),
           ])
-        )
-      ])
+        ),
+        h("p", {}, `${(((state.totalStep - state.log.length) / state.totalStep) * 100).toFixed(1)} % completed`)
+      ]),
     ])
   }
 
