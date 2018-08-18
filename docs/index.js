@@ -15,7 +15,7 @@ const run = ({ initial, final, log }) => {
   const state = {
     table: initial.map((row) => {
       return row.map((val) => {
-        return { val: (val === 0 ? " " : val), textColor: "black", backgroundColor: "white", fontStyle: (val === 0 ? "italic" : "normal") }
+        return ({ val: (val === 0 ? " " : val), textColor: "black", backgroundColor: "white", fontStyle: (val === 0 ? "italic" : "normal") })
       })
     }),
     log: log,
@@ -153,14 +153,13 @@ const run = ({ initial, final, log }) => {
       h("div", { style: { marginLeft: "0.75rem" } }, [
         h("form", {},
           h("label", { for: "speed" }, "Speed "),
-          h("select", { id: "speed", name: "speed", onchange: (ev) => actions.changeInterval(ev), oncreate: (e) => e.focus() }, [
-            h("option", { value: "x1", selected: "selected" }, "x1"),
-            h("option", { value: "x2" }, "x2"),
-            h("option", { value: "x4" }, "x4"),
-            h("option", { value: "x8" }, "x8"),
-            h("option", { value: "x16" }, "x16"),
-            h("option", { value: "x32" }, "x32"),
-          ])
+          h("select", { id: "speed", name: "speed", onchange: (ev) => actions.changeInterval(ev), oncreate: (e) => e.focus() }, [1, 2, 4, 8, 16, 32].map((i) => {
+            if (i === 1) {
+              return h("option", { value: `x${i}`, selected: "selected" }, `x${i}`)
+            } else {
+              return h("option", { value: `x${i}` }, `x${i}`)
+            }
+          }))
         ),
         h("p", {}, `${(((state.totalStep - state.log.length) / state.totalStep) * 100).toFixed(1)} % completed`)
       ]),
